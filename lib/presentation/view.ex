@@ -1,6 +1,17 @@
 defmodule Hangman.View do
+
+  @moduledoc """
+  Esta es la capa de presentacion para el juego hangman
+  """
+
   alias(Hangman.MaskWord, as: MaskWord)
 
+  @doc """
+  This functions help us to valid if the user win or lose
+  """
+  @type stateGame :: map()
+
+  @spec format_response(stateGame()) :: tuple()
   def format_response(%{limit: limit, completed?: false} = state) when limit > 0 do
     {MaskWord.mask_word(state), state}
   end
