@@ -2,12 +2,14 @@ defmodule Hangman do
   @moduledoc """
   The famous Hagman game
   """
+  alias(Hangman.{View, GameLogic, Module.String_Func_Per})
   @doc """
     Start the game
   """
 
-  alias(Hangman.{View, GameLogic, Module.String_Func_Per})
+  @type stateGame() :: map()
 
+  @spec start_game(String.t()) :: tuple()
   def start_game(word) do
     word
     |> GameLogic.init_game()
@@ -23,6 +25,7 @@ defmodule Hangman do
     RT/= { "-e--", %{ completed?: false, limit: 5, mask: "_", matches: [], missies: [], word: "hello"}}\n
     ## Valida if the letter exists in the word
   """
+  @spec take_a_guess(String.t(), stateGame()) :: tuple()
   def take_a_guess(letter, %{limit: limit, completed?: false} = state) when limit > 0 do
     letter
     |> String_Func_Per.string_downcase()
