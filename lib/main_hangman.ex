@@ -33,5 +33,7 @@ defmodule Hangman do
     |> View.format_response()
   end
 
-  def take_a_guess(_letter, state), do: View.format_response(state)
+  def take_a_guess(_letter, state) do
+    View.format_response(state)
+  end
 end
