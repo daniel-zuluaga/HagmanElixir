@@ -3,7 +3,7 @@ defmodule Hangman.GameLogic do
   Main logic for the game
   """
 
-  alias(Hangman.{Module.Validate_Completed_Word, State})
+  alias(Hangman.{Module.Validate_Completed_Word, Module.String_Func_Per, State})
 
   @doc """
   The function init_game is for begin the game of hangman \n
@@ -16,16 +16,18 @@ defmodule Hangman.GameLogic do
 
   @spec init_game(stringWord()) :: stateGame()
   def init_game(word) do
-    State.newState(word)
+    wordMin = String_Func_Per.string_downcase(word)
+    State.newState(wordMin)
   end
 
-  @spec guess(stringWord(), stateGame()) :: stateGame()
-  def guess(letter, state) do
-    %{word: word, goal: goal, matches: matches, missies: misses, limit: limit} = state
+  @spec guess(String.t(), map()) :: map()
+  def guess(letter, %State{} = state) do
+    %{goal: goal, matches: matches, missies: misses, limit: limit} = state
 
-    if MapSet.member?(goal, word) do
-      matchesUni = MapSet.put(matches, letter)
-      completed? = Validate_Completed_Word.validate_Completed_Word(goal, matchesUni)
+    matchesUni = MapSet.put(matches, letter)
+    completed? = Validate_Completed_Word.validate_Completed_Word(goal, matchesUni)
+
+    if MapSet.member?(goal, letter) do
       %{state | matches: matchesUni, completed?: completed?}
     else
       misses = MapSet.put(misses, letter)

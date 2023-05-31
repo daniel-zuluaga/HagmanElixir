@@ -12,6 +12,6 @@ defmodule Hangman.Module.Validate_Completed_Word do
 
   @spec validate_Completed_Word(map(), map()) :: boolean()
   def validate_Completed_Word(goal, matches) do
-    MapSet.equal?(goal,matches)
+    MapSet.equal?(goal, matches)
   end
 end
