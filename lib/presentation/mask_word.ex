@@ -10,12 +10,12 @@ defmodule Hangman.MaskWord do
   @type stateGame() :: map()
 
   @spec mask_word(stateGame()) :: String.t()
-  def mask_word(%{matches: [], word: word, mask: mask} = _state) do
-    String.replace(word, ~r/./, mask)
-  end
-
   def mask_word(%{matches: matches, word: word, mask: mask} = _state) do
-    matches = Enum.join(matches)
-    String.replace(word, ~r/[^#{matches}]/, mask)
+    if(MapSet.size(matches) > 0) do
+      matches = Enum.join(matches)
+      String.replace(word, ~r/[^#{matches}]/, mask)
+    else
+      String.replace(word, ~r/./, mask)
+    end
   end
 end

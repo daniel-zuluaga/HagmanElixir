@@ -1,19 +1,22 @@
 defmodule Hangman.State do
   alias Hangman.Module.String_Func_Per
 
-  @spec newState(String.t()) :: map()
+  @enforce_keys [:word, :goal]
+  defstruct [
+    :word,
+    :goal,
+    missies: MapSet.new(),
+    matches: MapSet.new(),
+    limit: 5,
+    mask: "_",
+    completed?: false
+  ]
+
+  @spec newState(String.t()) :: %Hangman.State{}
   def newState(word) do
     wordMin = String_Func_Per.string_downcase(word)
-    goal = word |> String.graphemes() |> MapSet.new()
+    goal = wordMin |> String.graphemes() |> MapSet.new()
 
-    %{
-      word: wordMin,
-      goal: goal,
-      missies: MapSet.new(),
-      matches: MapSet.new(),
-      limit: 5,
-      mask: "_",
-      completed?: false
-    }
+    struct!(__MODULE__, [word: word, goal: goal])
   end
 end

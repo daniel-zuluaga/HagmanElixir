@@ -24,3 +24,5 @@ hagman-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+*.livemd
