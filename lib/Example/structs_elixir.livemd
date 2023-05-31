@@ -1,0 +1,35 @@
+# Structs
+
+## Introduccion
+
+```elixir
+defmodule User do
+  defstruct [:name, :age]
+end
+```
+
+```elixir
+user = %User{name: "John Connor", age: 37}
+```
+
+```elixir
+user.name
+```
+
+```elixir
+user.age
+```
+
+## Pattern Machine
+
+```elixir
+%User{name: name} = user
+```
+
+```elixir
+name
+```
+
+```elixir
+%User{aggee: age} = user
+```
