@@ -1,5 +1,4 @@
 defmodule Hangman.View do
-
   @moduledoc """
   Esta es la capa de presentacion para el juego hangman
   """

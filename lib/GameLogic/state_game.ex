@@ -17,6 +17,6 @@ defmodule Hangman.State do
     wordMin = String_Func_Per.string_downcase(word)
     goal = wordMin |> String.graphemes() |> MapSet.new()
 
-    struct!(__MODULE__, [word: word, goal: goal])
+    struct!(__MODULE__, word: word, goal: goal)
   end
 end
