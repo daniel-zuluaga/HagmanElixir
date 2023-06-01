@@ -1,10 +1,10 @@
-check = fn (attempts) ->
+check = fn attempts ->
   {_, state} = Hangman.start_game("Hello")
 
   Enum.reduce(
     attempts,
     state,
-    fn (letter, state) ->
+    fn letter, state ->
       {word, state} = Hangman.take_a_guess(letter, state)
       IO.puts(word)
       state

@@ -1,5 +1,4 @@
 defmodule Hangman.Module.String_Func_Per do
-
   @moduledoc """
   This module help to other modules with simple functions
   """
