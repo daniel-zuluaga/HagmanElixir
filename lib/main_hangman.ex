@@ -1,8 +1,21 @@
+        # {"__________",
+        # %Hangman.State{
+        #   word: "#{Goal.generate()}",
+        #   goal: MapSet.new(["a", "h", "i", "m", "o", "p", "t"]),
+        #   missies: MapSet.new([]),
+        #   matches: MapSet.new([]),
+        #   limit: 5,
+        #   mask: "_",
+        #   completed?: false
+        # }}
+
+        # "_______a__"
+
 defmodule Hangman do
   @moduledoc """
   The famous Hagman game
   """
-  alias(Hangman.{View, GameLogic, Module.String_Func_Per, State})
+  alias(Hangman.{View, GameLogic, Module.String_Func_Per, State, Goal})
 
   @doc """
     Start the game
@@ -10,9 +23,9 @@ defmodule Hangman do
 
   @type stateGame() :: map()
 
-  @spec start_game(String.t()) :: tuple()
-  def start_game(word) do
-    word
+  @spec start_game() :: tuple()
+  def start_game() do
+    Goal.generate()
     |> GameLogic.init_game()
     |> View.format_response()
   end
@@ -21,19 +34,8 @@ defmodule Hangman do
   Valid the letter if the word contains the letter what take in the function
 
   ## Example
-        iex> {_word, state} = Hangman.start_game("Hipopotamo")
-        {"__________",
-        %Hangman.State{
-          word: "hipopotamo",
-          goal: MapSet.new(["a", "h", "i", "m", "o", "p", "t"]),
-          missies: MapSet.new([]),
-          matches: MapSet.new([]),
-          limit: 5,
-          mask: "_",
-          completed?: false
-        }}
+        iex> {_word, state} = Hangman.start_game()
         iex> Hangman.take_a_guess("a", state) |> elem(0)
-        "_______a__"
 
   """
   @spec take_a_guess(String.t(), stateGame()) :: tuple()
