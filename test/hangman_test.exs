@@ -10,32 +10,36 @@ defmodule HangmanTest do
 
   describe "take_a_guess/2" do
     setup do
-      {"_______", state} = Hangman.start_game()
+      player = :daniel
 
-      %{state: state}
+      Hangman.start_link(player)
     end
 
-    test "Probar el caso si el player gana", %{state: state} do
-      assert({"_a___a_", _state} = Hangman.take_a_guess("a", state))
+    test "Probar el caso si el player gana"  do
+      player = :daniel
 
-      {result, state} = check(["h", "g", "n", "m", "a"], state)
+      assert({"_a___a_", _pid} = Hangman.take_a_guess(player, "a"))
+
+      {result, pid} = check(["h", "g", "n", "m", "a"], player)
 
       assert "You won, word was: hangman" == result
-      assert state.completed?
+      assert pid.completed?
     end
 
-    test "Probar el caso si el player pierde", %{state: state} do
-      assert({"_______", state} = Hangman.take_a_guess("z", %{state | limit: 2}))
-      assert({"Game Over, word was: hangman", state} = Hangman.take_a_guess("w", state))
-      refute state.completed?
+    test "Probar el caso si el player pierde" do
+      player = :daniel
+
+      assert({"_______", pid} = Hangman.take_a_guess(player, "z"))
+      assert({"Game Over, word was: hangman", pid} = Hangman.take_a_guess(player, "x"))
+      refute pid.completed?
     end
 
-    defp check(attempts, state) do
+    defp check(attempts, name) do
       Enum.reduce(
         attempts,
-        {"", state},
-        fn letter, {_, state} ->
-          Hangman.take_a_guess(letter, state)
+        {"", name},
+        fn letter, {_, name} ->
+          Hangman.take_a_guess(name, letter)
         end
       )
     end

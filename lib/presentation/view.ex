@@ -15,16 +15,16 @@ defmodule Hangman.View do
   #   "how many attempts do you have left: #{limit}"
   # end
 
-  @spec format_response(stateGame()) :: tuple()
+  @spec format_response(stateGame()) :: String.t()
   def format_response(%State{limit: limit, completed?: false} = state) when limit > 0 do
-    {MaskWord.mask_word(state), state}
+    MaskWord.mask_word(state)
   end
 
-  def format_response(%State{limit: limit, word: word} = state) when limit > 0 do
-    {"You won, word was: #{word}", state}
+  def format_response(%State{limit: limit, word: word} = _state) when limit > 0 do
+    "You won, word was: #{word}"
   end
 
-  def format_response(%State{word: word} = state) do
-    {"Game Over, word was: #{word}", state}
+  def format_response(%State{word: word} = _state) do
+    "Game Over, word was: #{word}"
   end
 end
