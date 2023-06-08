@@ -7,5 +7,4 @@ defmodule Hangman.Goal.Word_Generator do
     words = ListWordsGenerator.wordGenerator()
     Enum.random(words)
   end
-
 end
